@@ -7,11 +7,17 @@ for (let i=0; i < months.length; i++) {
     monthNav.appendChild(btn)
 }
 
-import { signUp } from "./api"
+import { signUp, signIn } from "./api"
 
 const signUpButton = document.getElementById("signUp")
+const signInButton = document.getElementById("signIn")
 
 signUpButton.addEventListener("click", (evt) => {
     evt.preventDefault()
     signUp()
+})
+
+signInButton.addEventListener("click", (evt) =>{
+    evt.preventDefault()
+    signIn()
 })
