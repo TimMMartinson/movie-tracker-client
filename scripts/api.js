@@ -11,6 +11,7 @@ export const signUp = () => {
             }
         }),
         headers: {
+            "Accept": "application/json",
             "Content-Type": "application/json"
         }
     })
@@ -36,6 +37,7 @@ export const signIn = () => {
             }
         }),
         headers: {
+            "Accept": "application/json",
             "Content-Type": "application/json"
         }
     })
@@ -47,3 +49,5 @@ export const signIn = () => {
         console.log(err)
     })
 }
+
+export const index

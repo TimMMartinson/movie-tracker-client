@@ -1,23 +1,21 @@
-const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
-const monthNav = document.getElementById("monthNav")
+import { createMonthNav } from "./ui.js"
 
-for (let i=0; i < months.length; i++) {
-    let btn = document.createElement("button")
-    btn.innerHTML = months[i]
-    monthNav.appendChild(btn)
-}
+createMonthNav()
 
-import { signUp, signIn } from "./api"
+import { signUp, signIn } from "./api.js"
 
 const signUpButton = document.getElementById("signUp")
 const signInButton = document.getElementById("signIn")
+const signInForm = document.getElementById("signInForm")
 
-signUpButton.addEventListener("click", (evt) => {
-    evt.preventDefault()
+signInForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+})
+
+signUpButton.addEventListener("click", (event) => {
     signUp()
 })
 
-signInButton.addEventListener("click", (evt) =>{
-    evt.preventDefault()
+signInButton.addEventListener("click", (event) =>{
     signIn()
 })
