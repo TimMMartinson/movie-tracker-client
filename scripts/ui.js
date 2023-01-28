@@ -1,3 +1,5 @@
+import { showMovies } from "./api"
+
 export const createMonthNav = () => {
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
     const monthNav = document.getElementById("monthNav")
@@ -5,7 +7,8 @@ export const createMonthNav = () => {
     for (let i=0; i < months.length; i++) {
         let btn = document.createElement("button")
         btn.innerHTML = months[i]
-     monthNav.appendChild(btn)
+        btn.addEventListener("click", () => showMovies(i+1)) // adding the event listener here, passing the id of the month
+        monthNav.appendChild(btn)
     }
 }
 

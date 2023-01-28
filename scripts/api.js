@@ -50,4 +50,19 @@ export const signIn = () => {
     })
 }
 
-export const index
+export const showMovies = (id) => {
+    fetch(`http://127.0.0.1:8000/months/${id}`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
