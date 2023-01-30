@@ -1,6 +1,6 @@
 import { showMovies } from "./api.js"
 
-export const createMonthNav = () => {
+export const createMonthNav = (user) => {
     const months = ["JAN", "FEB", "MAR", "APR", 
     "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
     const monthNav = document.getElementById("monthNav")

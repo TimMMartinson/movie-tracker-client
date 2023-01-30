@@ -47,14 +47,46 @@ export const signIn = () => {
     .then(data => {
         window.localStorage.setItem("token", data.token)
         console.log(localStorage)
+        return data.token
     })
-    .then(createMonthNav())
+    .then(token => {
+        // Using token to fetch user from database
+        return fetch("http://127.0.0.1:8000/user, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        .then(res => res.json())
+        .then(user => {
+        return user
+    })
+    .then(user => {
+        return Promise.all(user.months.map(monthId => {
+            return fetch(`http://127.0.0.1:8000/months/${monthId}`, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(month => {
+                return month.month
+            })
+        }))
+    })
+    .then(months => {
+        createMonthNav(months)
+    })
     .catch(err => {
         console.log(err)
     })
 }
 
-export const showMovies = (month) => {
+export const showMovies = (monthId) => {
     fetch(`http://127.0.0.1:8000/user`, {
       method: "GET",
       headers: {
