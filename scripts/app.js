@@ -1,7 +1,3 @@
-import { createMonthNav } from "./ui.js"
-
-createMonthNav()
-
 import { signUp, signIn } from "./api.js"
 
 const signUpButton = document.getElementById("signUp")
