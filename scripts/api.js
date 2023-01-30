@@ -29,62 +29,57 @@ import { createMonthNav } from "./ui.js"
 export const signIn = () => {
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
-
+  
     fetch("http://127.0.0.1:8000/sign-in", {
-        method: "POST",
-        body: JSON.stringify({
-            credentials: {
-                email: email,
-                password: password
-            }
-        }),
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+      method: "POST",
+      body: JSON.stringify({
+        credentials: {
+          email,
+          password
         }
+      }),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
     })
     .then(res => res.json())
     .then(data => {
-        window.localStorage.setItem("token", data.token)
-        console.log(localStorage)
-        return data.token
+      window.localStorage.setItem("token", data.token)
+      console.log(localStorage)
+      return data.token
     })
     .then(token => {
-        // Using token to fetch user from database
-        return fetch("http://127.0.0.1:8000/user, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
+      return fetch("http://127.0.0.1:8000/user", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(user => {
+      return Promise.all(user.months.map(monthId => {
+        return fetch(`http://127.0.0.1:8000/months/${monthId}`, {
+          method: "GET",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          }
         })
         .then(res => res.json())
-        .then(user => {
-        return user
-    })
-    .then(user => {
-        return Promise.all(user.months.map(monthId => {
-            return fetch(`http://127.0.0.1:8000/months/${monthId}`, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(res => res.json())
-            .then(month => {
-                return month.month
-            })
-        }))
+        .then(month => month.month)
+      }))
     })
     .then(months => {
-        createMonthNav(months)
+      createMonthNav(months)
     })
     .catch(err => {
-        console.log(err)
+      console.error(err)
     })
-}
+  }
 
 export const showMovies = (monthId) => {
     fetch(`http://127.0.0.1:8000/user`, {
