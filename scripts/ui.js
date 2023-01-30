@@ -5,13 +5,12 @@ export const createMonthNav = (user) => {
     "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
     const monthNav = document.getElementById("monthNav")
 
-    monthNav.addEventListener("click", (event) => {
-    if (event.target.tagName === "BUTTON") {
-        const monthIndex = months.indexOf(event.target.innerHTML)
-        const monthId = user.months[monthIndex]._id
-        showMovies(monthId)
+    monthNav.addEventListener("click", event => {
+        if (event.target.tagName === "BUTTON") {
+          let monthIndex = months.indexOf(event.target.innerHTML)
+          showMovies(monthIndex)
         }
-    })
+      })
 
     for (let i=0; i < months.length; i++) {
         let btn = document.createElement("button")

@@ -47,42 +47,15 @@ export const signIn = () => {
     .then(data => {
       window.localStorage.setItem("token", data.token)
       console.log(localStorage)
-      return data.token
     })
-    .then(token => {
-      return fetch("http://127.0.0.1:8000/user", {
-        method: "GET",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      })
-    })
-    .then(res => res.json())
-    .then(user => {
-      return Promise.all(user.months.map(monthId => {
-        return fetch(`http://127.0.0.1:8000/months/${monthId}`, {
-          method: "GET",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          }
-        })
-        .then(res => res.json())
-        .then(month => month.month)
-      }))
-    })
-    .then(months => {
-      createMonthNav(months)
-    })
+    .then(createMonthNav())
     .catch(err => {
       console.error(err)
     })
   }
 
-export const showMovies = (monthId) => {
-    fetch(`http://127.0.0.1:8000/user`, {
+export const showMovies = (monthIndex) => {
+    fetch(`http://127.0.0.1:8000/months/${monthIndex}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -90,29 +63,22 @@ export const showMovies = (monthId) => {
         "Authorization": `Bearer ${window.localStorage.getItem("token")}`
       }
     })
-      .then(res => res.json())
-      .then(user => {
-        const monthId = user.monthId
-        fetch(`http://127.0.0.1:8000/months/${monthId}`, {
-          method: "GET",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${window.localStorage.getItem("token")}`
-          }
+    .then(res => res.json())
+    .then(data => {
+        const movieList = document.getElementById("showMovieContainer")
+        movieList.innerHTML = ""
+
+        data.month.movies.forEach(movie => {
+            const movieItem = document.createElement("li")
+            movieItem.innerHTML = `Title: ${movie.title} <br> 
+            Watched: ${movie.watched} <br> Comments: ${movie.comments}`
+            movieList.appendChild(movieItem)
         })
-          .then(res => res.json())
-          .then(data => {
-            console.log(data)
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      })
-      .catch(err => {
+    })
+    .catch(err => {
         console.log(err)
-      })
-  }
+    })
+}
 
 let monthIds = []
 
