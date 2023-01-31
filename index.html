@@ -27,13 +27,29 @@
     <br>
     <div id="createMovieContainer">
         <form>
+            <label>Month:</label>
+            <select name="month-names" id="month-names">
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+            <br>
             <label>Title:</label>
             <input type="text" id="newMovie" name="newMovie" required>
             <br>
             <label>Watched:</label>
-            <input type="radio" id="watchedTrue" name="watched" value="Yes">
+            <input type="radio" id="watchedTrue" name="watchedRadio" value="Yes">
             <label for="watchedTrue">Yes</label>
-            <input type="radio" id="watchedFalse" name="watched" value="No">
+            <input type="radio" id="watchedFalse" name="watchedRadio" value="No">
             <label for="watchedFalse">No</label>
             <br>
             <label>Comments:</label>
@@ -43,6 +59,6 @@
         </form>
     </div>
     <div id="indexContainer"></div>
-    <div id="showMovieContainer"></div>"
+    <div id="showMovieContainer"></div>
 </body>
 </html>

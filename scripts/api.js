@@ -54,8 +54,8 @@ export const signIn = () => {
     })
   }
 
-export const showMovies = (monthIndex) => {
-    fetch(`http://127.0.0.1:8000/months/${monthIndex}`, {
+export const showMovies = (monthId) => {
+    fetch(`http://127.0.0.1:8000/months/${monthId}`, {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -63,35 +63,52 @@ export const showMovies = (monthIndex) => {
         "Authorization": `Bearer ${window.localStorage.getItem("token")}`
       }
     })
-    .then(res => res.json())
-    .then(data => {
-        const movieList = document.getElementById("showMovieContainer")
-        movieList.innerHTML = ""
+    console.log(showMovies)
+    // .then(res => res.json())
+    // .then(data => {
+    //     const movieList = document.getElementById("showMovieContainer")
+    //     movieList.innerHTML = ""
 
-        data.month.movies.forEach(movie => {
-            const movieItem = document.createElement("li")
-            movieItem.innerHTML = `Title: ${movie.title} <br> 
-            Watched: ${movie.watched} <br> Comments: ${movie.comments}`
-            movieList.appendChild(movieItem)
-        })
-    })
-    .catch(err => {
-        console.log(err)
-    })
+//         data.month.movies.forEach(movie => {
+//             const movieItem = document.createElement("li")
+//             movieItem.innerHTML = `Title: ${movie.title} <br> 
+//             Watched: ${movie.watched} <br> Comments: ${movie.comments}`
+//             movieList.appendChild(movieItem)
+//         })
+//     })
+//     .catch(err => {
+//         console.log(err)
+//     })
 }
 
-let monthIds = []
+// let monthIds = []
 
-export const fetchMonths = (userId) => {
-    fetch(`http://127.0.0.1:8000/months/${userId}`)
-    .then(res => res.json())
-    .then(data => {
-        for (let i = 0; i < data.months.length; i++) {
-            monthIds.push(data.months[i]._id)
-        }
-    })
-    .catch(err => {
-        console.log(err)
-    })
-}
+// export const fetchMonths = (userId) => {
+//     fetch(`http://127.0.0.1:8000/months/${userId}`)
+//     .then(res => res.json())
+//     .then(data => {
+//         for (let i = 0; i < data.months.length; i++) {
+//             monthIds.push(data.months[i]._id)
+//         }
+//     })
+//     .catch(err => {
+//         console.log(err)
+//     })
+// }
+
+// const monthValue = document.getElementById("month-names").value
+// const titleValue = document.getElementById("newMovie").value
+// const watched = document.querySelector("input[name='watched']:checked").value === "Yes"
+// const comments = document.getElementById("comments").value
+
+// const movieData = {
+//     month: monthValue,
+//     title: titleValue,
+//     watched: watched,
+//     comments: comments
+// }
+
+// export const addMovie = () => {
+    
+// }
  
