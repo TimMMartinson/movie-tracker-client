@@ -1,28 +1,9 @@
-import { showMovies } from "./api.js"
+// import { store } from './store'
 
-export const createMonthNav = (user) => {
-    const months = ["JAN", "FEB", "MAR", "APR", 
-    "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
-    const monthNav = document.getElementById("monthNav")
-
-    monthNav.addEventListener("click", event => {
-        if (event.target.tagName === "BUTTON") {
-          let monthIndex = months.indexOf(event.target.innerHTML)
-          showMovies(monthIndex)
-        }
-      })
-
-    for (let i=0; i < months.length; i++) {
-        let btn = document.createElement("button")
-        btn.innerHTML = months[i]
-        monthNav.appendChild(btn)
-    }
-}
-
-const signInContainer = document.querySelector("#signInContainer")
-const messageContainer = document.querySelector("#messageContainer")
-const indexContainer = document.querySelector("#indexContainer")
-const showMovieContainer = document.querySelector("#showMovieContainer")
+const signInContainer = document.querySelector('#signInContainer')
+const messageContainer = document.querySelector('#messageContainer')
+const indexContainer = document.querySelector('#indexContainer')
+const showMovieContainer = document.querySelector('#showMovieContainer')
 
 export const onFailure = (error) => {
     messageContainer.innerHTML = `
@@ -31,15 +12,61 @@ export const onFailure = (error) => {
     `
 }
 
-export const onIndexSuccess = (movies) => {
-    movies.forEach(movie => {
-        const div = document.createElement("div")
+// User Actions
+export const onSignUpSuccess = () => {
+    messageContainer.innerHTML = 'You have created a new user! Now Sign in'
+}
+
+export const onSignInSuccess = (userToken) => {
+    messageContainer.innerHTML = ''
+}
+
+// Month Actions
+export const onIndexSucces = (months) => {
+    months.forEach((month) => {
+        const div = document.createElement('div')
         div.innerHTML = `
-        <h3>${movie.title}</h3>
-        <h3>${movie.watched}</h3>
-        <h3>${movie.comments}</h3>
-        <button data-id="${movie._id}">Show Movie</button>
-        <button data-id-"${movie.is}">Delete Movie</button>
+        <h2>${month.name}</h2>
+        <button data-id="${month._id}>Show Movies</button>
         `
     })
+}
+
+// Movie Actions
+export const onIndexMovieSuccess = (movies) => {
+    movies.forEach((movie) => {
+        const div = document.createElement('div')
+        div.innerHTML = `
+        <h3>${movie.title}</h3>
+        <button data-id="${movie._id}">Show Movie</button>
+        `
+        indexContainer.appendChild(div)
+    })
+}
+
+export const onShowMovieSuccess = (movie) => {
+    indexContainer.classList.add('hide')
+
+    showMovieContainer.classList.remove('hide')
+    const div = document.createElement('div')
+	div.innerHTML = `
+        <div class='row'>
+            <div class='col'>
+                <h2>Movie</h2>
+                <h3>${movie.title}</h3>
+                <p>${movie.watched}</p>
+                <p>${movie.comments}</p>
+            </div>
+            <div class='col'>
+                <form data-id="${movie._id}">
+                    <input class="form-control" type="text" name="title" value="${movie.title}">
+                    <input class="form-control" type="radio" name="watched" value="${movie.watched}">
+                    <input class="form-control" type="text" name="comments" value="${movie.comments}">
+                    <button type="submit" class="btn btn-warning">Update Movie</button>
+                </form>
+                <button type="button" class="btn btn-danger" data-id="${movie._id}">Delete Movie</button>
+            </div>
+        </div>
+    `
+    showMovieContainer.appendChild(div)
 }
