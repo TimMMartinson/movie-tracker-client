@@ -24,6 +24,7 @@ export const onSignInSuccess = (userToken) => {
 // Month Actions
 export const onIndexSuccess = (months) => {
     console.log(months)
+    indexContainer.innerHTML = ''
     months.forEach((monthArray) => {
         monthArray.forEach((month) => {
             console.log(month)
@@ -40,7 +41,9 @@ export const onIndexSuccess = (months) => {
 // Movie Actions
 export const onIndexMovieSuccess = (movies) => {
     console.log(movies)
+    indexContainer.innerHTML = ''
     movies.forEach((movie) => {
+        console.log(movie)
         const div = document.createElement('div')
         div.innerHTML = `
         <h3>${movie.title}</h3>

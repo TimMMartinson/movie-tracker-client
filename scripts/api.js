@@ -54,8 +54,12 @@ export const signIn = () => {
 
 // Movie Actions
 
-export const indexMovies = () => {
-    return fetch(`http://127.0.0.1/movies`)
+export const indexMovies = (monthId) => {
+    return fetch(`http://127.0.0.1:8000/movies?monthId=${monthId}`, {
+        headers: {
+			'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+		} 
+    })
 }
 
 // Month Actions

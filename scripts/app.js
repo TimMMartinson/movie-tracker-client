@@ -1,7 +1,8 @@
 import { 
     signUp, 
     signIn, 
-    indexMonth } from './api.js'
+    indexMonth, 
+    indexMovies } from './api.js'
 import { onFailure, 
     onIndexMovieSuccess, 
     onShowMovieSuccess, 
@@ -30,11 +31,30 @@ signInButton.addEventListener('click', (event) =>{
 })
 
 // Month actions
+indexContainer.addEventListener('click', (event) => {
+    const id = event.target.getAttribute('data-id')
+        if(!id) return
+        indexMovies(id)
+            .then((res) => {
+                console.log(res)
+                return res.json()
+            })
+            .then((data) => {
+                const moviesArray = Object.values(data)
+                onIndexMovieSuccess(moviesArray)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+})
 indexButton.addEventListener('click', (event) => {
         indexMonth()
             .then((res) => res.json())
             .then((data) => {
                 const monthsArray = Object.values(data)
                 onIndexSuccess(monthsArray)
+            })
+            .catch((err) => {
+                console.error(err)
             })
 })
