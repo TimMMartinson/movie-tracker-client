@@ -1,5 +1,13 @@
-import { signUp, signIn, indexMonth } from './api.js'
-import { onFailure, onIndexMovieSuccess, onShowMovieSuccess, onSignUpSuccess, onSignInSuccess, onIndexSucces } from './ui.js'
+import { 
+    signUp, 
+    signIn, 
+    indexMonth } from './api.js'
+import { onFailure, 
+    onIndexMovieSuccess, 
+    onShowMovieSuccess, 
+    onSignUpSuccess, 
+    onSignInSuccess, 
+    onIndexSuccess } from './ui.js'
 // import { store } from './store.js'
 
 const signUpButton = document.getElementById('signUp')
@@ -24,5 +32,9 @@ signInButton.addEventListener('click', (event) =>{
 // Month actions
 indexButton.addEventListener('click', (event) => {
         indexMonth()
-            .then((res) => onIndexSucces(res))
+            .then((res) => res.json())
+            .then((data) => {
+                const monthsArray = Object.values(data)
+                onIndexSuccess(monthsArray)
+            })
 })

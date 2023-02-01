@@ -22,18 +22,24 @@ export const onSignInSuccess = (userToken) => {
 }
 
 // Month Actions
-export const onIndexSucces = (months) => {
-    months.forEach((month) => {
-        const div = document.createElement('div')
-        div.innerHTML = `
-        <h2>${month.name}</h2>
-        <button data-id="${month._id}>Show Movies</button>
-        `
+export const onIndexSuccess = (months) => {
+    console.log(months)
+    months.forEach((monthArray) => {
+        monthArray.forEach((month) => {
+            console.log(month)
+            const div = document.createElement('div')
+            div.innerHTML = `
+            <h2>${month.month}</h2>
+            <button data-id="${month._id}">Show Movies</button>
+            `
+            indexContainer.appendChild(div)
+        }) 
     })
 }
 
 // Movie Actions
 export const onIndexMovieSuccess = (movies) => {
+    console.log(movies)
     movies.forEach((movie) => {
         const div = document.createElement('div')
         div.innerHTML = `
