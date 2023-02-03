@@ -1,5 +1,5 @@
 // User actions
-export const signUp = () => {
+export const signUp = () => { // a function should do one thing and do it well 
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
 
@@ -16,7 +16,7 @@ export const signUp = () => {
             'Content-Type': 'application/json'
         }
     })
-    .then(res => res.json())
+    .then(res => res.json()) // this is abandoning the functional programming paradigm - should be in app
     .then(data => {
         console.log(data)
     })
@@ -42,7 +42,7 @@ export const signIn = () => {
         'Content-Type': 'application/json'
       }
     })
-    .then(res => res.json())
+    .then(res => res.json()) 
     .then(data => {
       window.localStorage.setItem('token', data.token)
       console.log(localStorage)
@@ -70,3 +70,6 @@ export const indexMonth = () => {
 		}
 	})
 }
+
+
+// there is no movie or month crud in here ? that's a little disappointing after all the effort you put into those route in the backend. 
